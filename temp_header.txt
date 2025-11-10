@@ -1,0 +1,595 @@
+<!-- Main Header -->
+<div class="sticky top-0 z-40 backdrop-blur-xl border-b border-white/20 shadow-lg" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+        <div class="flex items-center gap-6">
+            <!-- Logo -->
+            <div class="flex items-center gap-3 flex-shrink-0">
+                <div class="bg-green-600 rounded-lg p-2.5 shadow-md">
+                    <i class="fas fa-shopping-cart text-white text-xl"></i>
+                </div>
+                <span class="text-2xl font-bold tracking-tight text-gray-800">Mini Mart</span>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-2xl">
+                <form class="flex items-center relative">
+                    <div class="relative flex-1">
+                        <i class="fas fa-search absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                        <input type="text" placeholder="Search for products..." class="w-full pl-14 pr-16 py-3 border border-gray-300 rounded-full focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200 bg-white text-gray-800 placeholder-gray-400 shadow-sm">
+                    </div>
+                    <button type="submit" class="absolute right-2 bg-green-600 text-white w-10 h-10 rounded-full hover:bg-green-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-110 active:scale-100 flex items-center justify-center">
+                        <i class="fas fa-search text-sm"></i>
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Right Side Actions -->
+            <div class="flex items-center gap-6 flex-shrink-0 ml-20">
+                <!-- Compare, Wishlist, Cart Group -->
+                <div class="flex items-center gap-5">
+                    <button onclick="toggleCompareModal()" class="text-gray-600 hover:text-green-600 transition-colors relative group">
+                        <i class="fas fa-balance-scale text-xl"></i>
+                        <span id="compare-count" class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                        <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Compare</span>
+                    </button>
+                    <button onclick="toggleWishlistModal()" class="text-gray-600 hover:text-green-600 transition-colors relative group">
+                        <i class="far fa-heart text-xl"></i>
+                        <span id="wishlist-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+                        <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Wishlist</span>
+                    </button>
+                    <button onclick="toggleCartModal()" class="text-gray-600 hover:text-green-600 transition-colors relative group">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                        <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Cart</span>
+                    </button>
+                </div>
+                
+                <!-- Divider -->
+                <div class="h-8 w-px bg-gray-300"></div>
+                
+                <!-- User Account and Language Group -->
+                <div class="flex items-center gap-5">
+                    <button onclick="toggleUserMenu()" class="text-gray-600 hover:text-green-600 transition-colors relative group">
+                        <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center overflow-hidden">
+                            <i id="header-user-icon" class="fas fa-user-circle text-xl"></i>
+                            <img id="header-user-photo" src="" alt="User Photo" class="w-full h-full object-cover hidden rounded-full">
+                        </div>
+                        <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Account</span>
+                    </button>
+                    
+                    <!-- Language Selector -->
+                    <div class="relative group flex items-center gap-20">
+                        <button class="cursor-pointer hover:opacity-80 transition-opacity duration-200 flex items-center">
+                            <img src="image/UK.png" alt="Language" class="w-7 h-5 object-contain rounded-sm" id="language-flag" style="min-width: 28px; min-height: 20px;">
+                        </button>
+                        <div class="absolute right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-2 min-w-[120px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                            <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors" onclick="changeLanguage('UK.png'); return false;">
+                                <img src="image/UK.png" alt="English" class="w-7 h-5 object-contain rounded-sm" style="min-width: 28px; min-height: 20px;">
+                                <span class="text-sm text-gray-700">English</span>
+                            </a>
+                            <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors" onclick="changeLanguage('KH.png'); return false;">
+                                <img src="image/KH.png" alt="Khmer" class="w-7 h-5 object-contain rounded-sm" style="min-width: 28px; min-height: 20px;">
+                                <span class="text-sm text-gray-700">ខ្មែរ</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- User Dropdown Menu -->
+        <div id="user-dropdown" class="absolute right-6 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-3 min-w-[220px] opacity-0 invisible transition-all duration-200 z-50" style="display: none;">
+            <div class="px-4 py-3 border-b border-gray-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center overflow-hidden">
+                        <i id="dropdown-user-icon" class="fas fa-user text-green-600 text-xl"></i>
+                        <img id="dropdown-user-photo" src="" alt="User Photo" class="w-full h-full object-cover hidden rounded-full">
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-gray-800">Guest User</p>
+                        <p class="text-xs text-gray-500">guest@example.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="py-2">
+                <button onclick="openProfileModal()" class="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors text-left">
+                    <i class="fas fa-user text-gray-500 w-5"></i>
+                    <span>My Profile</span>
+                </button>
+                <button onclick="openOrdersModal()" class="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors text-left">
+                    <i class="fas fa-shopping-bag text-gray-500 w-5"></i>
+                    <span>My Orders</span>
+                </button>
+                <button onclick="toggleWishlistModal(); toggleUserMenu();" class="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors text-left">
+                    <i class="far fa-heart text-gray-500 w-5"></i>
+                    <span>Wishlist</span>
+                </button>
+                <button onclick="openAddressesModal()" class="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors text-left">
+                    <i class="fas fa-map-marker-alt text-gray-500 w-5"></i>
+                    <span>Addresses</span>
+                </button>
+                <button onclick="openSettingsModal()" class="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors text-left">
+                    <i class="fas fa-cog text-gray-500 w-5"></i>
+                    <span>Settings</span>
+                </button>
+                <div class="border-t border-gray-200 my-2"></div>
+                <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors text-left">
+                    <i class="fas fa-sign-out-alt text-red-500 w-5"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Navigation Bar -->
+<div class="bg-green-600 text-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center gap-4 py-3">
+            <!-- Browse All Categories Button -->
+            <div class="relative group flex-shrink-0">
+                <button class="bg-green-700 hover:bg-green-800 px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors">
+                    <i class="fas fa-bars"></i>
+                    Browse All Categories
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <!-- Categories Dropdown -->
+                <div class="absolute top-full left-0 mt-2 bg-white text-gray-800 rounded-lg shadow-xl border border-gray-200 py-2 min-w-[250px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-utensils text-green-600 w-5"></i>
+                        <span>Cake & Milk</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-coffee text-orange-600 w-5"></i>
+                        <span>Coffees & Teas</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-bone text-amber-600 w-5"></i>
+                        <span>Pet Foods</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-carrot text-green-600 w-5"></i>
+                        <span>Vegetables</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-apple-alt text-red-600 w-5"></i>
+                        <span>Fresh Fruits</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-cheese text-yellow-600 w-5"></i>
+                        <span>Milks & Dairies</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-drumstick-bite text-red-700 w-5"></i>
+                        <span>Meats</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Navigation Links -->
+            <div class="flex items-center gap-1 flex-1">
+                <a href="index.php?page=home" class="px-4 py-2 hover:bg-green-700 rounded transition-colors font-medium">Hot Deals</a>
+                <a href="index.php?page=all-products" class="px-4 py-2 hover:bg-green-700 rounded transition-colors font-medium">Home</a>
+                <a href="index.php?page=about" class="px-4 py-2 hover:bg-green-700 rounded transition-colors font-medium">About</a>
+                <a href="index.php?page=product" class="px-4 py-2 hover:bg-green-700 rounded transition-colors font-medium">Shop</a>
+                <a href="index.php?page=contact" class="px-4 py-2 hover:bg-green-700 rounded transition-colors font-medium">Contact</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<div class="bg-gradient-to-r from-green-50 to-green-100 py-16 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Side - Text Content -->
+            <div class="space-y-6">
+                <div>
+                    <h1 class="text-5xl lg:text-6xl font-bold text-gray-800 mb-4">
+                        Fresh Vegetables<br>
+                        <span class="text-green-600">Big discount</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-6">Save up to 50% off on your first order</p>
+                </div>
+                
+                <!-- Email Subscription Form -->
+                <div class="bg-white rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Subscribe to our newsletter</h3>
+                    <form class="flex gap-2">
+                        <input type="email" placeholder="Your email address" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200">
+                        <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-semibold">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Right Side - Product Image -->
+            <div class="flex items-center justify-center">
+                <div class="relative w-full max-w-lg">
+                    <div class="bg-white rounded-2xl shadow-2xl p-8 transform hover:scale-105 transition-transform duration-300">
+                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6">
+                            <div class="flex items-center justify-center h-64">
+                                <div class="grid grid-cols-3 gap-4">
+                                    <div class="bg-white rounded-lg p-4 shadow-md flex items-center justify-center">
+                                        <i class="fas fa-lemon text-4xl text-yellow-400"></i>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-4 shadow-md flex items-center justify-center">
+                                        <i class="fas fa-carrot text-4xl text-orange-500"></i>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-4 shadow-md flex items-center justify-center">
+                                        <i class="fas fa-apple-alt text-4xl text-red-500"></i>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-4 shadow-md flex items-center justify-center">
+                                        <i class="fas fa-seedling text-4xl text-green-500"></i>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-4 shadow-md flex items-center justify-center">
+                                        <i class="fas fa-pepper-hot text-4xl text-red-600"></i>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-4 shadow-md flex items-center justify-center">
+                                        <i class="fas fa-leaf text-4xl text-green-600"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slider Indicators -->
+        <div class="flex justify-center gap-2 mt-8">
+            <div class="w-2 h-2 bg-green-600 rounded-full"></div>
+            <div class="w-8 h-2 bg-green-600 rounded-full"></div>
+            <div class="w-2 h-2 bg-green-300 rounded-full"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Hot Deals Section -->
+<div class="bg-red-50 py-12">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">🔥 Hot Deals</h2>
+                <p class="text-gray-600">Limited time offers - Don't miss out!</p>
+            </div>
+            <div class="hidden md:flex items-center gap-4">
+                <button onclick="scrollHotDeals('left')" class="p-2 hover:bg-white rounded-full transition-colors shadow-md">
+                    <i class="fas fa-chevron-left text-gray-600"></i>
+                </button>
+                <button onclick="scrollHotDeals('right')" class="p-2 hover:bg-white rounded-full transition-colors shadow-md">
+                    <i class="fas fa-chevron-right text-gray-600"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Hot Deals Products Grid -->
+        <div id="hot-deals-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 overflow-x-auto">
+            <!-- Hot Deal Product 1 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow relative">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10 flex items-center gap-1">
+                        <i class="fas fa-fire text-xs"></i>
+                        60% OFF
+                    </div>
+                    <div class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </div>
+                    <div class="h-48 bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center">
+                        <i class="fas fa-apple-alt text-6xl text-red-400"></i>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Fresh Fruits</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">Premium Red Apples</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(4.9)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">FreshMart</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl font-bold text-red-600">$8.99</span>
+                        <span class="text-sm text-gray-400 line-through">$22.99</span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xs text-red-600 font-semibold">⚡ Ends in: </span>
+                        <span class="text-xs font-bold text-red-600" id="countdown-1">23:59:45</span>
+                    </div>
+                    <button onclick="addToCart('hd1', 'Premium Red Apples', '$8.99', '')" class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Hot Deal Product 2 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow relative">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10 flex items-center gap-1">
+                        <i class="fas fa-fire text-xs"></i>
+                        50% OFF
+                    </div>
+                    <div class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </div>
+                    <div class="h-48 bg-gradient-to-br from-orange-50 to-yellow-50 flex items-center justify-center">
+                        <i class="fas fa-drumstick-bite text-6xl text-orange-400"></i>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Fresh Meat</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">Premium Chicken Breast</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="far fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(4.5)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">MeatMaster</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl font-bold text-red-600">$12.99</span>
+                        <span class="text-sm text-gray-400 line-through">$25.99</span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xs text-red-600 font-semibold">⚡ Ends in: </span>
+                        <span class="text-xs font-bold text-red-600" id="countdown-2">18:30:22</span>
+                    </div>
+                    <button onclick="addToCart('hd2', 'Premium Chicken Breast', '$12.99', '')" class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Hot Deal Product 3 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow relative">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10 flex items-center gap-1">
+                        <i class="fas fa-fire text-xs"></i>
+                        45% OFF
+                    </div>
+                    <div class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </div>
+                    <div class="h-48 bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center">
+                        <i class="fas fa-ice-cream text-6xl text-purple-400"></i>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Dairy Products</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">Premium Vanilla Ice Cream</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(5.0)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">CreamDelight</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl font-bold text-red-600">$6.99</span>
+                        <span class="text-sm text-gray-400 line-through">$12.99</span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xs text-red-600 font-semibold">⚡ Ends in: </span>
+                        <span class="text-xs font-bold text-red-600" id="countdown-3">12:15:30</span>
+                    </div>
+                    <button onclick="addToCart('hd3', 'Premium Vanilla Ice Cream', '$6.99', '')" class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Hot Deal Product 4 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow relative">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10 flex items-center gap-1">
+                        <i class="fas fa-fire text-xs"></i>
+                        55% OFF
+                    </div>
+                    <div class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </div>
+                    <div class="h-48 bg-gradient-to-br from-green-50 to-emerald-50 flex items-center justify-center">
+                        <i class="fas fa-carrot text-6xl text-green-400"></i>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Fresh Vegetables</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">Organic Fresh Carrots</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="far fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(4.3)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">OrganicFarm</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl font-bold text-red-600">$4.99</span>
+                        <span class="text-sm text-gray-400 line-through">$11.99</span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xs text-red-600 font-semibold">⚡ Ends in: </span>
+                        <span class="text-xs font-bold text-red-600" id="countdown-4">06:45:10</span>
+                    </div>
+                    <button onclick="addToCart('hd4', 'Organic Fresh Carrots', '$4.99', '')" class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Categories Section -->
+<div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-3xl font-bold text-gray-800">Featured Categories</h2>
+        <div class="flex items-center gap-4">
+            <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <i class="fas fa-chevron-left text-gray-600"></i>
+            </button>
+            <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <i class="fas fa-chevron-right text-gray-600"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Category Tabs -->
+    <div class="flex items-center gap-4 mb-6 overflow-x-auto pb-2">
+        <button class="px-6 py-2 bg-green-600 text-white rounded-lg font-medium whitespace-nowrap">Cake & Milk</button>
+        <button class="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 whitespace-nowrap">Coffes & Teas</button>
+        <button class="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 whitespace-nowrap">Pet Foods</button>
+        <button class="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 whitespace-nowrap">Vegetables</button>
+    </div>
+    
+    <!-- Category Cards Grid -->
+    <div id="featured-categories-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-10 gap-4">
+        <!-- Category Card 1 -->
+        <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow cursor-pointer">
+            <div class="w-16 h-16 bg-yellow-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-utensils text-3xl text-yellow-600"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800 text-sm mb-1">Cake & Milk</h3>
+            <p class="text-xs text-gray-500">11 items</p>
+        </div>
+        
+        <!-- Category Card 2 -->
+        <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow cursor-pointer">
+            <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-kiwi-bird text-3xl text-green-600"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800 text-sm mb-1">Organic Kiwi</h3>
+            <p class="text-xs text-gray-500">6 items</p>
+        </div>
+        
+        <!-- Category Card 3 -->
+        <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow cursor-pointer">
+            <div class="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-peach text-3xl text-orange-600"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800 text-sm mb-1">Peach</h3>
+            <p class="text-xs text-gray-500">8 items</p>
+        </div>
+        
+        <!-- Category Card 4 -->
+        <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow cursor-pointer">
+            <div class="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-apple-alt text-3xl text-red-600"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800 text-sm mb-1">Red Apple</h3>
+            <p class="text-xs text-gray-500">12 items</p>
+        </div>
+        
+        <!-- Category Card 5 -->
+        <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow cursor-pointer">
+            <div class="w-16 h-16 bg-amber-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-cookie text-3xl text-amber-600"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800 text-sm mb-1">Snacks</h3>
+            <p class="text-xs text-gray-500">15 items</p>
+        </div>
+        
+        <!-- Category Card 6 -->
+        <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow cursor-pointer">
+            <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-leaf text-3xl text-green-700"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800 text-sm mb-1">Vegetables</h3>
+            <p class="text-xs text-gray-500">20 items</p>
+        </div>
+        
+        <!-- Category Card 7 -->
+        <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow cursor-pointer">
+            <div class="w-16 h-16 bg-pink-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-strawberry text-3xl text-pink-600"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800 text-sm mb-1">Strawberry</h3>
+            <p class="text-xs text-gray-500">9 items</p>
+        </div>
+        
+        <!-- Category Card 8 -->
+        <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow cursor-pointer">
+            <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-apple-alt text-3xl text-purple-600"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800 text-sm mb-1">Black plum</h3>
+            <p class="text-xs text-gray-500">7 items</p>
+        </div>
+        
+        <!-- Category Card 9 -->
+        <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow cursor-pointer">
+            <div class="w-16 h-16 bg-yellow-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-apple-alt text-3xl text-yellow-700"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800 text-sm mb-1">Custard apple</h3>
+            <p class="text-xs text-gray-500">5 items</p>
+        </div>
+        
+        <!-- Category Card 10 -->
+        <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow cursor-pointer">
+            <div class="w-16 h-16 bg-amber-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-coffee text-3xl text-amber-800"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800 text-sm mb-1">Coffee & Tea</h3>
+            <p class="text-xs text-gray-500">13 items</p>
+        </div>
+    </div>
+</div>
+
+<!-- Promotional Banners Section -->
+<div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Banner 1 -->
+        <div class="bg-gradient-to-r from-green-600 to-green-700 rounded-lg p-6 text-white relative overflow-hidden">
+            <div class="relative z-10">
+                <h3 class="text-xl font-bold mb-2">Everyday Fresh & Clean with Our Products</h3>
+                <button class="mt-4 bg-white text-green-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    Shop Now →
+                </button>
+            </div>
+            <div class="absolute right-0 top-0 h-full w-32 opacity-20">
+                <i class="fas fa-onion text-8xl text-white"></i>
+            </div>
+        </div>
+        
+        <!-- Banner 2 -->
+        <div class="bg-gradient-to-r from-pink-500 to-pink-600 rounded-lg p-6 text-white relative overflow-hidden">
+            <div class="relative z-10">
+                <h3 class="text-xl font-bold mb-2">Make your Breakfast Healthy and Easy</h3>
+                <button class="mt-4 bg-white text-pink-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    Shop Now →
+                </button>
+            </div>
+            <div class="absolute right-0 top-0 h-full w-32 opacity-20">
+                <i class="fas fa-wine-bottle text-8xl text-white"></i>
+            </div>
+        </div>
+        
+        <!-- Banner 3 -->
+        <div class="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-6 text-white relative overflow-hidden">
+            <div class="relative z-10">
+                <h3 class="text-xl font-bold mb-2">The best Organic Products Online</h3>
+                <button class="mt-4 bg-white text-orange-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    Shop Now →
+                </button>
+            </div>
+            <div class="absolute right-0 top-0 h-full w-32 opacity-20">
+                <i class="fas fa-shopping-basket text-8xl text-white"></i>
+            </div>
+        </div>
+    </div>
+</div>
+

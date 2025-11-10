@@ -1,0 +1,393 @@
+<!-- All Categories Section -->
+<div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">All Categories</h2>
+            <p class="text-gray-600">Browse all our product categories</p>
+        </div>
+    </div>
+    
+    <!-- All Categories Grid -->
+    <div id="all-categories-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <!-- Category cards will be dynamically generated -->
+        <noscript>
+            <p class="col-span-full text-gray-600 text-center py-8">Please enable JavaScript to view categories.</p>
+        </noscript>
+    </div>
+</div>
+
+<!-- All Products Section -->
+<div class="bg-gray-50 py-12">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">All Products</h2>
+                <p class="text-gray-600" id="products-count">Showing all products</p>
+            </div>
+            <div class="hidden md:flex items-center gap-4">
+                <select id="sort-products" onchange="sortProducts()" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500">
+                    <option value="default">Sort by: Default</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name">Name: A to Z</option>
+                    <option value="rating">Highest Rated</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Product Filter Tabs -->
+        <div class="flex items-center gap-4 mb-8 overflow-x-auto pb-2">
+            <button onclick="filterProducts('all')" class="category-filter-btn px-6 py-2 bg-green-600 text-white rounded-lg font-medium whitespace-nowrap" data-category="all">All</button>
+            <button onclick="filterProducts('baking')" class="category-filter-btn px-6 py-2 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-100 whitespace-nowrap" data-category="baking">Baking material</button>
+            <button onclick="filterProducts('fruits')" class="category-filter-btn px-6 py-2 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-100 whitespace-nowrap" data-category="fruits">Fresh Fruits</button>
+            <button onclick="filterProducts('dairy')" class="category-filter-btn px-6 py-2 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-100 whitespace-nowrap" data-category="dairy">Milks & Dairies</button>
+            <button onclick="filterProducts('meats')" class="category-filter-btn px-6 py-2 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-100 whitespace-nowrap" data-category="meats">Meats</button>
+            <button onclick="filterProducts('vegetables')" class="category-filter-btn px-6 py-2 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-100 whitespace-nowrap" data-category="vegetables">Vegetables</button>
+            <button onclick="filterProducts('seafood')" class="category-filter-btn px-6 py-2 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-100 whitespace-nowrap" data-category="seafood">Seafood</button>
+            <button onclick="filterProducts('snacks')" class="category-filter-btn px-6 py-2 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-100 whitespace-nowrap" data-category="snacks">Snacks</button>
+            <button onclick="filterProducts('beverages')" class="category-filter-btn px-6 py-2 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-100 whitespace-nowrap" data-category="beverages">Beverages</button>
+        </div>
+        
+        <!-- Product Grid -->
+        <div id="all-products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <!-- Product Card 1 -->
+            <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="fruits" data-price="28.85" data-rating="4.0" data-name="Seeds of Change Organic Red Rice">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-orange-500 text-white px-2 py-1 rounded text-xs font-semibold z-10">13%</div>
+                    <div class="h-48 bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center">
+                        <i class="fas fa-wheat text-6xl text-amber-400"></i>
+                    </div>
+                    <button onclick="addToWishlist('p1', 'Seeds of Change Organic Red Rice', '$28.85', '')" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Fresh Fruit</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">Seeds of Change Organic Red Rice</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(4.0)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">NestFood</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-lg font-bold text-green-600">$28.85</span>
+                        <span class="text-sm text-gray-400 line-through">$32.00</span>
+                    </div>
+                    <button onclick="addToCart('p1', 'Seeds of Change Organic Red Rice', '$28.85', '')" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product Card 2 -->
+            <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="seafood" data-price="52.85" data-rating="3.5" data-name="All Natural Style Chicken Meatballs">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-semibold z-10">66%</div>
+                    <div class="h-48 bg-gradient-to-br from-red-50 to-pink-50 flex items-center justify-center">
+                        <i class="fas fa-drumstick-bite text-6xl text-red-400"></i>
+                    </div>
+                    <button onclick="addToWishlist('p2', 'All Natural Style Chicken Meatballs', '$52.85', '')" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Fresh Seafood</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">All Natural Style Chicken Meatballs</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="far fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(3.5)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">Stouffer</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-lg font-bold text-green-600">$52.85</span>
+                        <span class="text-sm text-gray-400 line-through">$55.00</span>
+                    </div>
+                    <button onclick="addToCart('p2', 'All Natural Style Chicken Meatballs', '$52.85', '')" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product Card 3 -->
+            <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="snacks" data-price="48.85" data-rating="4.8" data-name="Angie's Sweet & Salty Kettle Corn">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-semibold z-10">New</div>
+                    <div class="h-48 bg-gradient-to-br from-yellow-50 to-amber-50 flex items-center justify-center">
+                        <i class="fas fa-cookie text-6xl text-yellow-500"></i>
+                    </div>
+                    <button onclick="addToWishlist('p3', 'Angie's Sweet & Salty Kettle Corn', '$48.85', '')" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Snacks</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">Angie's Sweet & Salty Kettle Corn</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(4.8)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">Old El Paso</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-lg font-bold text-green-600">$48.85</span>
+                        <span class="text-sm text-gray-400 line-through">$52.00</span>
+                    </div>
+                    <button onclick="addToCart('p3', 'Angie's Sweet & Salty Kettle Corn', '$48.85', '')" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product Card 4 -->
+            <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="seafood" data-price="17.85" data-rating="3.9" data-name="Foster Farms Takeout Crispy Classic">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-orange-500 text-white px-2 py-1 rounded text-xs font-semibold z-10">8%</div>
+                    <div class="h-48 bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center">
+                        <i class="fas fa-drumstick-bite text-6xl text-red-400"></i>
+                    </div>
+                    <button onclick="addToWishlist('p4', 'Foster Farms Takeout Crispy Classic', '$17.85', '')" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Fresh Seafood</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">Foster Farms Takeout Crispy Classic</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="far fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(3.9)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">NestFood</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-lg font-bold text-green-600">$17.85</span>
+                        <span class="text-sm text-gray-400 line-through">$19.50</span>
+                    </div>
+                    <button onclick="addToCart('p4', 'Foster Farms Takeout Crispy Classic', '$17.85', '')" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product Card 5 -->
+            <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="vegetables" data-price="23.85" data-rating="3.5" data-name="Blue Almonds Lightly Salted Vegetables">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-blue-500 text-white px-2 py-1 rounded text-xs font-semibold z-10">New</div>
+                    <div class="h-48 bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
+                        <i class="fas fa-seedling text-6xl text-green-500"></i>
+                    </div>
+                    <button onclick="addToWishlist('p5', 'Blue Almonds Lightly Salted Vegetables', '$23.85', '')" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Vegetables</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">Blue Almonds Lightly Salted Vegetables</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="far fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(3.5)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">Foster</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-lg font-bold text-green-600">$23.85</span>
+                        <span class="text-sm text-gray-400 line-through">$25.00</span>
+                    </div>
+                    <button onclick="addToCart('p5', 'Blue Almonds Lightly Salted Vegetables', '$23.85', '')" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product Card 6 -->
+            <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="dairy" data-price="54.85" data-rating="4.9" data-name="Chobani Complete Vanilla">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-semibold z-10">New</div>
+                    <div class="h-48 bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center">
+                        <i class="fas fa-cheese text-6xl text-yellow-400"></i>
+                    </div>
+                    <button onclick="addToWishlist('p6', 'Chobani Complete Vanilla', '$54.85', '')" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Milks & Dairies</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">Chobani Complete Vanilla</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(4.9)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">Yoplait</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-lg font-bold text-green-600">$54.85</span>
+                        <span class="text-sm text-gray-400 line-through">$58.00</span>
+                    </div>
+                    <button onclick="addToCart('p6', 'Chobani Complete Vanilla', '$54.85', '')" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product Card 7 -->
+            <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="dairy" data-price="22.85" data-rating="3.9" data-name="Haagen Caramel Cone Ice">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-purple-500 text-white px-2 py-1 rounded text-xs font-semibold z-10">New</div>
+                    <div class="h-48 bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center">
+                        <i class="fas fa-ice-cream text-6xl text-purple-400"></i>
+                    </div>
+                    <button onclick="addToWishlist('p7', 'Haagen Caramel Cone Ice', '$22.85', '')" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Milks & Dairies</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">Haagen Caramel Cone Ice</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="far fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(3.9)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">Tasty</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-lg font-bold text-green-600">$22.85</span>
+                        <span class="text-sm text-gray-400 line-through">$24.00</span>
+                    </div>
+                    <button onclick="addToCart('p7', 'Haagen Caramel Cone Ice', '$22.85', '')" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product Card 8 -->
+            <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="seafood" data-price="23.85" data-rating="4.0" data-name="Gorton's Beer Battered Fish">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-orange-500 text-white px-2 py-1 rounded text-xs font-semibold z-10">20%</div>
+                    <div class="h-48 bg-gradient-to-br from-blue-50 to-teal-50 flex items-center justify-center">
+                        <i class="fas fa-fish text-6xl text-blue-400"></i>
+                    </div>
+                    <button onclick="addToWishlist('p8', 'Gorton's Beer Battered Fish', '$23.85', '')" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Fresh Seafood</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">Gorton's Beer Battered Fish</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="far fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(4.0)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">Old El Paso</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-lg font-bold text-green-600">$23.85</span>
+                        <span class="text-sm text-gray-400 line-through">$29.80</span>
+                    </div>
+                    <button onclick="addToCart('p8', 'Gorton's Beer Battered Fish', '$23.85', '')" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product Card 9 -->
+            <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow opacity-75" data-category="seafood" data-price="35.85" data-rating="3.5" data-name="Encore Seafoods Stuffed">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-semibold z-10">Out of Stock</div>
+                    <div class="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center opacity-50">
+                        <i class="fas fa-fish text-6xl text-gray-400"></i>
+                    </div>
+                    <button class="absolute top-2 right-2 text-gray-400 cursor-not-allowed z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Fresh Seafood</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">Encore Seafoods Stuffed</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="far fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(3.5)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">NestFood</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-lg font-bold text-green-600">$35.85</span>
+                        <span class="text-sm text-gray-400 line-through">$40.00</span>
+                    </div>
+                    <button class="w-full bg-gray-400 text-white py-2 rounded-lg cursor-not-allowed font-semibold text-sm" disabled>
+                        Out of Stock
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product Card 10 -->
+            <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="beverages" data-price="32.85" data-rating="4.8" data-name="Canada Dry Ginger Ale - 2 L">
+                <div class="relative">
+                    <div class="absolute top-2 left-2 bg-blue-500 text-white px-2 py-1 rounded text-xs font-semibold z-10">New</div>
+                    <div class="h-48 bg-gradient-to-br from-green-50 to-emerald-50 flex items-center justify-center">
+                        <i class="fas fa-wine-bottle text-6xl text-green-400"></i>
+                    </div>
+                    <button onclick="addToWishlist('p10', 'Canada Dry Ginger Ale - 2 L', '$32.85', '')" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                        <i class="far fa-heart text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-500 mb-1">Beverages</p>
+                    <h3 class="font-semibold text-gray-800 mb-2 text-sm">Canada Dry Ginger Ale - 2 L</h3>
+                    <div class="flex items-center gap-1 mb-2">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <span class="text-xs text-gray-500 ml-1">(4.8)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">By <span class="text-green-600">Country Crock</span></p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-lg font-bold text-green-600">$32.85</span>
+                        <span class="text-sm text-gray-400 line-through">$35.00</span>
+                    </div>
+                    <button onclick="addToCart('p10', 'Canada Dry Ginger Ale - 2 L', '$32.85', '')" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold text-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

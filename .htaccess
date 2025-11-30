@@ -1,0 +1,20 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# Redirect to index.php if file doesn't exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?page=$1 [QSA,L]
+
+# Prevent directory listing
+Options -Indexes
+
+# Set default charset
+AddDefaultCharset UTF-8
+
+# Protect config files
+<FilesMatch "^(config\.php|\.htaccess)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+

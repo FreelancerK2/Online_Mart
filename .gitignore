@@ -1,0 +1,26 @@
+# Environment variables - NEVER commit these!
+.env
+.env.local
+.env.*.local
+
+# Sensitive configuration files
+config.local.php
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+temp_*.txt
+*.tmp

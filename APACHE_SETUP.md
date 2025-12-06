@@ -44,6 +44,7 @@ sudo echo "127.0.0.1    online-mart.local" >> /etc/hosts
 #### Step 2.4: Access the site
 
 Open your browser and navigate to:
+
 ```
 http://online-mart.local
 ```
@@ -61,6 +62,7 @@ sudo ln -s /home/somnang/Developer/Online_Mart /var/www/html/online-mart
 #### Step 3.2: Access the site
 
 Open your browser and navigate to:
+
 ```
 http://localhost/online-mart
 ```
@@ -121,6 +123,7 @@ sudo systemctl restart apache2
 ## Database Configuration
 
 The database configuration is in `config.php`:
+
 - Host: `127.0.0.1:3306`
 - Username: `root`
 - Password: `Lensomnang@21`
@@ -130,8 +133,8 @@ Make sure these credentials match your MySQL setup.
 
 ## Security Notes
 
-⚠️ **Important:** 
+⚠️ **Important:**
+
 - Change the database password in production
 - The `.htaccess` file protects `config.php` from direct access
 - Consider using environment variables for sensitive configuration
-

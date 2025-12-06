@@ -67,3 +67,12 @@ echo ""
 echo "Make sure MySQL is running and the database is imported!"
 echo ""
 
+
+
+
+
+
+
+
+
+

@@ -14,6 +14,10 @@ if (isset($_SESSION['admin'])) {
 }
 
 $error = '';
+if (isset($_SESSION['oauth_error'])) {
+    $error = $_SESSION['oauth_error'];
+    unset($_SESSION['oauth_error']);
+}
 
 if (isset($_POST['login'])) {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -39,13 +43,16 @@ if (isset($_POST['login'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login - Mini Mart</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
+
 <body class="bg-gradient-to-br from-green-50 to-emerald-50 min-h-screen flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
         <div class="text-center mb-8">
@@ -80,12 +87,27 @@ if (isset($_POST['login'])) {
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
             </div>
 
-            <button type="submit" name="login" 
+            <button type="submit" name="login"
                 class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-100 flex items-center justify-center gap-2">
                 <i class="fas fa-sign-in-alt"></i>
                 <span>Login</span>
             </button>
         </form>
+
+        <!-- Divider -->
+        <div class="relative my-6">
+            <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+                <span class="px-2 bg-white text-gray-500">Or continue with</span>
+            </div>
+        </div>
+
+        <!-- Google Sign In Button -->
+        <?php if (!empty($google_client_id)): ?>
+            <div id="google-signin-button" class="w-full flex justify-center my-4"></div>
+        <?php endif; ?>
 
         <div class="mt-6 text-center space-y-2">
             <p class="text-gray-600 text-sm">Don't have an account?</p>
@@ -104,6 +126,57 @@ if (isset($_POST['login'])) {
             </div>
         </div>
     </div>
-</body>
-</html>
 
+    <script>
+        function handleGoogleSignIn(response) {
+            // Send the credential to the server
+            if (response.credential) {
+                // Redirect to Google auth handler with the credential
+                window.location.href = 'google-auth.php?credential=' + encodeURIComponent(response.credential);
+            }
+        }
+
+        // Wait for Google Identity Services library to load
+        function initializeGoogleSignIn() {
+            if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+                google.accounts.id.initialize({
+                    client_id: '<?php echo htmlspecialchars($google_client_id); ?>',
+                    callback: handleGoogleSignIn
+                });
+
+                // Render the button if container exists
+                var buttonContainer = document.getElementById('google-signin-button');
+                if (buttonContainer) {
+                    google.accounts.id.renderButton(buttonContainer, {
+                        type: 'standard',
+                        size: 'large',
+                        theme: 'outline',
+                        text: 'sign_in_with',
+                        shape: 'rectangular',
+                        logo_alignment: 'left'
+                    });
+                }
+            } else {
+                // Retry if library not loaded yet (max 50 attempts = 5 seconds)
+                if (typeof retryCount === 'undefined') {
+                    window.retryCount = 0;
+                }
+                if (window.retryCount < 50) {
+                    window.retryCount++;
+                    setTimeout(initializeGoogleSignIn, 100);
+                } else {
+                    console.error('Google Sign-In library failed to load');
+                }
+            }
+        }
+
+        // Start initialization
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeGoogleSignIn);
+        } else {
+            initializeGoogleSignIn();
+        }
+    </script>
+</body>
+
+</html>

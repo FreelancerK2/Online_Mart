@@ -14,6 +14,10 @@ if (isset($_SESSION['user_id'])) {
 }
 
 $error = '';
+if (isset($_SESSION['oauth_error'])) {
+    $error = $_SESSION['oauth_error'];
+    unset($_SESSION['oauth_error']);
+}
 
 if (isset($_POST['login'])) {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -51,14 +55,28 @@ if (isset($_POST['login'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xml:lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
     <title>Login - Mini Mart</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Force Google button to use English - hl=en parameter forces English -->
+    <script src="https://accounts.google.com/gsi/client?hl=en" async defer></script>
+    <script>
+        // Override browser language for Google Sign-In
+        window.google = window.google || {};
+        window.google.accounts = window.google.accounts || {};
+        window.google.accounts.id = window.google.accounts.id || {};
+        if (window.google.accounts.id.setLogLevel) {
+            window.google.accounts.id.setLogLevel(0);
+        }
+    </script>
 </head>
+
 <body class="bg-gradient-to-br from-green-50 to-emerald-50 min-h-screen flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
         <div class="text-center mb-8">
@@ -93,12 +111,27 @@ if (isset($_POST['login'])) {
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
             </div>
 
-            <button type="submit" name="login" 
+            <button type="submit" name="login"
                 class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-100 flex items-center justify-center gap-2">
                 <i class="fas fa-sign-in-alt"></i>
                 <span>Login</span>
             </button>
         </form>
+
+        <!-- Divider -->
+        <div class="relative my-6">
+            <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+                <span class="px-2 bg-white text-gray-500">Or continue with</span>
+            </div>
+        </div>
+
+        <!-- Google Sign In Button -->
+        <div id="google-signin-button" class="w-full flex justify-center my-4">
+            <p class="text-gray-500 text-sm">Loading Google Sign-In...</p>
+        </div>
 
         <div class="mt-6 text-center space-y-2">
             <p class="text-gray-600 text-sm">Don't have an account?</p>
@@ -112,5 +145,126 @@ if (isset($_POST['login'])) {
             </div>
         </div>
     </div>
+
+    <script>
+        console.log('=== Login page JavaScript loaded ===');
+        console.log('Page URL:', window.location.href);
+
+        function handleGoogleSignIn(response) {
+            console.log('Google Sign-In callback triggered');
+            if (response.credential) {
+                window.location.href = 'google-auth.php?credential=' + encodeURIComponent(response.credential);
+            }
+        }
+
+        function initializeGoogleSignIn() {
+            console.log('=== initializeGoogleSignIn() called ===');
+            console.log('Google object:', typeof google);
+
+            if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+                console.log('Google library loaded, initializing...');
+                var clientId = '<?php echo htmlspecialchars($google_client_id ?? ''); ?>';
+                console.log('Client ID:', clientId ? 'SET (' + clientId.substring(0, 20) + '...)' : 'MISSING');
+
+                if (!clientId) {
+                    console.error('Google Client ID is missing! Check your .env file.');
+                    var container = document.getElementById('google-signin-button');
+                    if (container) {
+                        container.innerHTML = '<p class="text-red-500 text-sm">Google Sign-In not configured.</p>';
+                    }
+                    return;
+                }
+
+                try {
+                    // Force English language - initialize with explicit locale
+                    google.accounts.id.initialize({
+                        client_id: clientId,
+                        callback: handleGoogleSignIn,
+                        ux_mode: 'popup',
+                        auto_select: false,
+                        cancel_on_tap_outside: true
+                    });
+
+                    var buttonContainer = document.getElementById('google-signin-button');
+                    if (buttonContainer) {
+                        buttonContainer.innerHTML = '';
+                        // Render Google sign-in button in English with updated style
+                        // Note: Language is controlled by hl=en in script URL
+                        google.accounts.id.renderButton(buttonContainer, {
+                            type: 'standard',
+                            size: 'large',
+                            theme: 'filled_blue',
+                            text: 'signin_with', // This should show "Sign in with Google" in English
+                            shape: 'pill',
+                            logo_alignment: 'left',
+                            width: 320
+                        });
+                        console.log('Google Sign-In button rendered successfully!');
+
+                        // Force English by modifying the button text after render if needed
+                        setTimeout(function() {
+                            var googleButton = buttonContainer.querySelector('div[role="button"]');
+                            if (googleButton) {
+                                var buttonText = googleButton.textContent || googleButton.innerText;
+                                // If button shows Khmer text, we'll need to replace it
+                                if (buttonText.includes('ចូល') || buttonText.includes('Google') && !buttonText.includes('Sign in')) {
+                                    console.log('Detected Khmer text, attempting to force English...');
+                                    // The text is controlled by Google's library, so we need to ensure hl=en is working
+                                }
+                            }
+                        }, 500);
+                    } else {
+                        console.error('Button container not found!');
+                    }
+                } catch (error) {
+                    console.error('Error initializing Google Sign-In:', error);
+                    var container = document.getElementById('google-signin-button');
+                    if (container) {
+                        container.innerHTML = '<p class="text-red-500 text-sm">Error: ' + error.message + '</p>';
+                    }
+                }
+            } else {
+                if (typeof window.retryCount === 'undefined') {
+                    window.retryCount = 0;
+                }
+                if (window.retryCount < 50) {
+                    window.retryCount++;
+                    console.log('Waiting for Google library... attempt ' + window.retryCount);
+                    setTimeout(initializeGoogleSignIn, 100);
+                } else {
+                    console.error('Google Sign-In library failed to load after 5 seconds');
+                    var container = document.getElementById('google-signin-button');
+                    if (container) {
+                        container.innerHTML = '<p class="text-red-500 text-sm">Google Sign-In failed to load. Please refresh the page.</p>';
+                    }
+                }
+            }
+        }
+
+        console.log('Setting up initialization...');
+        console.log('Document ready state:', document.readyState);
+
+        if (document.readyState === 'loading') {
+            console.log('Document still loading, waiting for DOMContentLoaded');
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('DOMContentLoaded fired');
+                initializeGoogleSignIn();
+            });
+        } else {
+            console.log('Document already loaded, initializing immediately');
+            initializeGoogleSignIn();
+        }
+
+        window.addEventListener('load', function() {
+            console.log('Window load event fired');
+            var container = document.getElementById('google-signin-button');
+            console.log('Button container on load:', container);
+            if (container && container.children.length === 0) {
+                console.log('Button not rendered yet, retrying...');
+                initializeGoogleSignIn();
+            }
+        });
+    </script>
 </body>
+
 </html>

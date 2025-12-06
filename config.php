@@ -32,3 +32,9 @@ $conn = mysqli_connect($serverString, $username, $password, $database);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
+// Google OAuth Configuration
+// Get Google OAuth credentials from environment variables or use defaults
+$google_client_id = $_ENV['GOOGLE_CLIENT_ID'] ?? '';
+$google_client_secret = $_ENV['GOOGLE_CLIENT_SECRET'] ?? '';
+$google_redirect_uri = $_ENV['GOOGLE_REDIRECT_URI'] ?? (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/google-auth.php";
